@@ -10,12 +10,15 @@
         <string name="rotate_y">Y</string>
 
         <string name="red">R</string>
-        <string name="blue">G</string>
-        <string name="green">B</string>
+        <string name="green">G</string>
+        <string name="blue">B</string>
 
         <string name="opacity">100%</string>
 
     <!-- Buttons -->
     <string name="take_picture">Take a picture!</string>
+
+    <!-- Image -->
+    <string name="image_description">mainImage</string>
 
 </resources>
