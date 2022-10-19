@@ -1,6 +1,5 @@
-package com.e
+package com.example.photoedit
 
-import android.media.Image
 import com.example.photoedit.R
 
 import androidx.appcompat.app.AppCompatActivity
