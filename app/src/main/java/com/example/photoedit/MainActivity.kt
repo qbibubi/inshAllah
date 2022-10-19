@@ -1,5 +1,6 @@
 package com.example.photoedit
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         red.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                // change red hue
+                imageMain.setColorFilter(Color.argb(255, p1, 0, 0))
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         green.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                // change green hue
+                imageMain.setColorFilter(Color.argb(255, 0, p1, 0))
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
         blue.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                // change blue hue
+                imageMain.setColorFilter(Color.argb(255, 0, 0, p1))
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
