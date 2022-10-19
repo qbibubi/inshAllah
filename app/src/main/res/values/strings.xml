@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Jakub Sobiearj 4pr T5</string>
+
+    <!-- TextViews -->
+    <string name="opacity_view">OPACITY</string>
+    <string name="hue_view">HUE</string>
+    <string name="rotation_view">ROTATION</string>
+
+        <string name="rotate_x">X</string>
+        <string name="rotate_y">Y</string>
+
+        <string name="red">R</string>
+        <string name="blue">G</string>
+        <string name="green">B</string>
+
+        <string name="opacity">100%</string>
+
+    <!-- Buttons -->
+    <string name="take_picture">Take a picture!</string>
+
 </resources>
