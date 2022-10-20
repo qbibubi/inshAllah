@@ -1,8 +1,10 @@
 package com.example.photoedit
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.SeekBar
 
@@ -51,9 +53,15 @@ class MainActivity : AppCompatActivity() {
         val green = findViewById<SeekBar>(R.id.greenFilterBar)
         val blue = findViewById<SeekBar>(R.id.redFilterBar)
 
+        var Red = 0
+        var Green = 0
+        var Blue = 0
+        var Opacity = 0
+
         red.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                imageMain.setColorFilter(Color.argb(255, p1, 0, 0))
+                Red = p1
+                imageMain.setColorFilter(Color.argb(Opacity, Red, Green, Blue), PorterDuff.Mode.SRC_ATOP)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -67,7 +75,8 @@ class MainActivity : AppCompatActivity() {
 
         green.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                imageMain.setColorFilter(Color.argb(255, 0, p1, 0))
+                Green = p1
+                imageMain.setColorFilter(Color.argb(Opacity, Red, Green, Blue), PorterDuff.Mode.SRC_ATOP)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -81,7 +90,30 @@ class MainActivity : AppCompatActivity() {
 
         blue.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                imageMain.setColorFilter(Color.argb(255, 0, 0, p1))
+                Blue = p1
+                imageMain.getDrawable().setColorFilter(Color.argb(Opacity, Red, Green, Blue), PorterDuff.Mode.SRC_ATOP)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                // i love
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                // code bro
+            }
+        })
+
+        // opacity bar
+        val opacity = findViewById<SeekBar>(R.id.opacityBar)
+
+        opacity.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                Opacity = p1
+                imageMain.getDrawable().setColorFilter(Color.argb(Opacity, Red, Green, Blue), PorterDuff.Mode.SRC_ATOP)
+                Log.d("R: ", Red.toString())
+                Log.d("R: ", Green.toString())
+                Log.d("R: ", Blue.toString())
+                Log.d("R: ", Opacity.toString())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
