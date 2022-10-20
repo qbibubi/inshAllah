@@ -1,17 +1,41 @@
 package com.example.photoedit
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.SeekBar
+import androidx.core.app.ActivityCompat
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.CAMERA),
+                111
+            )
+        }
+
+        val button: Button = findViewById(R.id.takePicture)
+        button.setOnClickListener {
+            var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(i, 101)
+        }
 
         // image view
         val imageMain = findViewById<ImageView>(R.id.mainImage)
@@ -56,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         var Red: Int = 0
         var Green: Int = 0
         var Blue: Int = 0
-        var Opacity: Int = 100
+        var Opacity: Int = 255
 
         red.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -110,10 +134,6 @@ class MainActivity : AppCompatActivity() {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 Opacity = p1
                 imageMain.getDrawable().setColorFilter(Color.argb(Opacity, Red, Green, Blue), PorterDuff.Mode.SRC_ATOP)
-                Log.d("r: ", Red.toString())
-                Log.d("g: ", Green.toString())
-                Log.d("b: ", Blue.toString())
-                Log.d("a: ", Opacity.toString())
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -124,5 +144,26 @@ class MainActivity : AppCompatActivity() {
                 // code bro
             }
         })
+
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 101) {
+            var image: Bitmap? = data?.getParcelableExtra("data")
+            findViewById<ImageView>(R.id.mainImage).setImageBitmap(image)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 111 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            setContentView(R.layout.activity_main)
+        }
+    }
+
 }
